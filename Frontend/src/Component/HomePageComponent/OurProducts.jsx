@@ -172,6 +172,12 @@ function OurProducts() {
           </div>
         ))}
       </div>
+
+      <div className="mt-8">
+        <button className="h-12 w-[245px] border-1 border-[#B88E2F] text-[#B88E2F] font-semibold text-base">
+          Show More
+        </button>
+      </div>
     </div>
   );
 }
