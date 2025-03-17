@@ -3,6 +3,7 @@ import HomeBanner from "../../HomePageComponent/Banner";
 import BrowseRange from "../../HomePageComponent/BrowseRange";
 import OurProducts from "../../HomePageComponent/OurProducts";
 import BannerTwo from "../../HomePageComponent/BannerTwo";
+import BannerThree from "../../HomePageComponent/BannerThree";
 function Homepage() {
   return (
     <>
@@ -10,6 +11,7 @@ function Homepage() {
       <BrowseRange />
       <OurProducts />
       <BannerTwo />
+      <BannerThree />
     </>
   );
 }
