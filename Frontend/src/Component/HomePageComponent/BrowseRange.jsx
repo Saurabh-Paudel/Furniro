@@ -9,7 +9,7 @@ function BrowseRange() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4">
+    <div className="h-auto flex flex-col items-center justify-center p-4 my-[56px]">
       {/* Header Section */}
       <header className="text-center mb-10">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
