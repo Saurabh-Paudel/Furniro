@@ -118,7 +118,7 @@ function OurProducts() {
               {/* Product Actions (visible on hover) */}
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 {/* Background Overlay */}
-                <div className="absolute inset-0 bg-[#3f3f3f] bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-[#3f3f3f] bg-opacity-50 opacity-0 group-hover:opacity-50 transition-opacity duration-300 pointer-events-none"></div>
                 {/* Action Button and Links */}
                 <div className="flex flex-col items-center justify-center z-10">
                   <button
