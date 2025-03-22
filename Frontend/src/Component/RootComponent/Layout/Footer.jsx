@@ -68,9 +68,9 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-6 py-8 md:px-12 md:py-10">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {/* Company Info */}
-            <div className="space-y-4 text-center md:text-left">
+            <div className="space-y-4 text-left">
               <h2 className="text-2xl font-bold text-gray-900">Funiro.</h2>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 leading-relaxed">
                 400 University Drive Suite 200 Coral
                 <br />
                 Gables, FL 33134 USA
@@ -90,9 +90,9 @@ const Footer = () => {
                 section: "help",
               },
             ].map(({ title, items, section }) => (
-              <div key={section}>
+              <div key={section} className="text-left">
                 <button
-                  className="w-full text-lg font-semibold text-gray-900 flex justify-between items-center md:block"
+                  className="w-full text-lg font-semibold text-gray-900 flex justify-between items-center md:cursor-default"
                   onClick={() => toggleSection(section)}
                 >
                   {title}
@@ -107,7 +107,10 @@ const Footer = () => {
                 >
                   {items.map((item) => (
                     <li key={item}>
-                      <a href="#" className="text-gray-600 hover:text-gray-900">
+                      <a
+                        href="#"
+                        className="text-gray-600 hover:text-gray-900 transition-colors duration-300"
+                      >
                         {item}
                       </a>
                     </li>
@@ -117,9 +120,9 @@ const Footer = () => {
             ))}
 
             {/* Newsletter Section */}
-            <div>
+            <div className="text-left">
               <button
-                className="w-full text-lg font-semibold text-gray-900 flex justify-between items-center md:block"
+                className="w-full text-lg font-semibold text-gray-900 flex justify-between items-center md:cursor-default"
                 onClick={() => toggleSection("newsletter")}
               >
                 Newsletter
@@ -135,12 +138,12 @@ const Footer = () => {
                 <form className="space-y-4">
                   <input
                     type="email"
-                    className="w-full border-b border-gray-400 py-2 text-sm text-gray-600 outline-none bg-transparent"
+                    className="w-full border-b border-gray-400 py-2 text-sm text-gray-600 outline-none bg-transparent placeholder-gray-500"
                     placeholder="Enter Your Email Address"
                   />
                   <button
                     type="submit"
-                    className="text-sm font-semibold text-gray-900 hover:text-gray-700"
+                    className="text-sm font-semibold text-gray-900 border-b border-gray-900 hover:text-gray-700 hover:border-gray-700 transition-colors duration-300"
                   >
                     SUBSCRIBE
                   </button>
@@ -160,4 +163,5 @@ const Footer = () => {
     </div>
   );
 };
+
 export default Footer;
