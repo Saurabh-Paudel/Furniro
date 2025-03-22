@@ -57,10 +57,10 @@ function Navbar() {
                 className="relative group cursor-pointer transition-all duration-300 hover:translate-x-1 md:hover:translate-x-1 lg:hover:translate-x-2"
               >
                 <Link to={item.link}>
-                  <span className="transition-all duration-300 group-hover:text-indigo-600">
+                  <span className="transition-all duration-300 group-hover:text-[#b68e4c]">
                     {item.menuname}
                   </span>
-                  <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-indigo-600 transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#b68e4c] transition-all duration-300 group-hover:w-full"></span>
                 </Link>
               </li>
             ))}
@@ -75,7 +75,7 @@ function Navbar() {
               <div className="absolute top-8 right-0 hidden group-hover:block bg-white shadow-lg rounded-lg p-2">
                 <button
                   onClick={handleLogout}
-                  className="text-sm text-gray-700 hover:text-indigo-600 transition-colors duration-300"
+                  className="text-sm text-gray-700 hover:text-[#b68e4c] transition-colors duration-300"
                 >
                   Logout
                 </button>
@@ -83,12 +83,12 @@ function Navbar() {
             </div>
           ) : (
             <Link to="/login">
-              <FaRegUser className="h-5 md:h-5 lg:h-6 xl:h-[24px] w-5 md:w-5 lg:w-6 xl:w-[24px] transform transition-all duration-300 hover:text-indigo-600 hover:scale-105 md:hover:scale-110 lg:hover:scale-125 hover:translate-x-1 md:hover:translate-x-1 lg:hover:translate-x-2" />
+              <FaRegUser className="h-5 md:h-5 lg:h-6 xl:h-[24px] w-5 md:w-5 lg:w-6 xl:w-[24px] transform transition-all duration-300 hover:text-[#b68e4c] hover:scale-105 md:hover:scale-110 lg:hover:scale-125 hover:translate-x-1 md:hover:translate-x-1 lg:hover:translate-x-2" />
             </Link>
           )}
-          <HiMagnifyingGlass className="h-5 md:h-5 lg:h-6 xl:h-[24px] w-5 md:w-5 lg:w-6 xl:w-[24px] transform transition-all duration-300 hover:text-indigo-600 hover:scale-105 md:hover:scale-110 lg:hover:scale-125 hover:translate-x-1 md:hover:translate-x-1 lg:hover:translate-x-2" />
-          <FaRegHeart className="h-5 md:h-5 lg:h-6 xl:h-[24px] w-5 md:w-5 lg:w-6 xl:w-[24px] transform transition-all duration-300 hover:text-indigo-600 hover:scale-105 md:hover:scale-110 lg:hover:scale-125 hover:translate-x-1 md:hover:translate-x-1 lg:hover:translate-x-2" />
-          <MdOutlineShoppingCart className="h-5 md:h-5 lg:h-6 xl:h-[24px] w-5 md:w-5 lg:w-6 xl:w-[24px] transform transition-all duration-300 hover:text-indigo-600 hover:scale-105 md:hover:scale-110 lg:hover:scale-125 hover:translate-x-1 md:hover:translate-x-1 lg:hover:translate-x-2" />
+          <HiMagnifyingGlass className="h-5 md:h-5 lg:h-6 xl:h-[24px] w-5 md:w-5 lg:w-6 xl:w-[24px] transform transition-all duration-300 hover:text-[#b68e4c] hover:scale-105 md:hover:scale-110 lg:hover:scale-125 hover:translate-x-1 md:hover:translate-x-1 lg:hover:translate-x-2" />
+          <FaRegHeart className="h-5 md:h-5 lg:h-6 xl:h-[24px] w-5 md:w-5 lg:w-6 xl:w-[24px] transform transition-all duration-300 hover:text-[#b68e4c] hover:scale-105 md:hover:scale-110 lg:hover:scale-125 hover:translate-x-1 md:hover:translate-x-1 lg:hover:translate-x-2" />
+          <MdOutlineShoppingCart className="h-5 md:h-5 lg:h-6 xl:h-[24px] w-5 md:w-5 lg:w-6 xl:w-[24px] transform transition-all duration-300 hover:text-[#b68e4c] hover:scale-105 md:hover:scale-110 lg:hover:scale-125 hover:translate-x-1 md:hover:translate-x-1 lg:hover:translate-x-2" />
         </div>
       </div>
 
@@ -102,7 +102,7 @@ function Navbar() {
           {menuItems.map((item) => (
             <li
               key={item.menuname}
-              className="cursor-pointer transition-all duration-300 hover:text-indigo-600 hover:translate-x-2"
+              className="cursor-pointer transition-all duration-300 hover:text-[#b68e4c] hover:translate-x-2"
             >
               <Link to={item.link}>{item.menuname}</Link>
             </li>
@@ -110,11 +110,11 @@ function Navbar() {
           <div className="flex items-center gap-6 mt-4">
             {isLoggedIn ? (
               <div className="relative group">
-                <FaRegUser className="h-[20px] w-[20px] transform transition-all duration-300 hover:text-indigo-600 hover:scale-110 hover:translate-x-2" />
+                <FaRegUser className="h-[20px] w-[20px] transform transition-all duration-300 hover:text-[#b68e4c] hover:scale-110 hover:translate-x-2" />
                 <div className="absolute top-8 left-1/2 transform -translate-x-1/2 hidden group-hover:block bg-white shadow-lg rounded-lg p-2">
                   <button
                     onClick={handleLogout}
-                    className="text-sm text-gray-700 hover:text-indigo-600 transition-colors duration-300"
+                    className="text-sm text-gray-700 hover:text-[#b68e4c] transition-colors duration-300"
                   >
                     Logout
                   </button>
@@ -122,12 +122,12 @@ function Navbar() {
               </div>
             ) : (
               <Link to="/login">
-                <FaRegUser className="h-[20px] w-[20px] transform transition-all duration-300 hover:text-indigo-600 hover:scale-110 hover:translate-x-2" />
+                <FaRegUser className="h-[20px] w-[20px] transform transition-all duration-300 hover:text-[#b68e4c] hover:scale-110 hover:translate-x-2" />
               </Link>
             )}
-            <HiMagnifyingGlass className="h-[20px] w-[20px] transform transition-all duration-300 hover:text-indigo-600 hover:scale-110 hover:translate-x-2" />
-            <FaRegHeart className="h-[20px] w-[20px] transform transition-all duration-300 hover:text-indigo-600 hover:scale-110 hover:translate-x-2" />
-            <MdOutlineShoppingCart className="h-[20px] w-[20px] transform transition-all duration-300 hover:text-indigo-600 hover:scale-110 hover:translate-x-2" />
+            <HiMagnifyingGlass className="h-[20px] w-[20px] transform transition-all duration-300 hover:text-[#b68e4c] hover:scale-110 hover:translate-x-2" />
+            <FaRegHeart className="h-[20px] w-[20px] transform transition-all duration-300 hover:text-[#b68e4c] hover:scale-110 hover:translate-x-2" />
+            <MdOutlineShoppingCart className="h-[20px] w-[20px] transform transition-all duration-300 hover:text-[#b68e4c] hover:scale-110 hover:translate-x-2" />
           </div>
         </ul>
       </div>
