@@ -1,39 +1,49 @@
 import React, { useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { FaFacebook, FaLinkedin, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
-import { AiFillTwitterCircle } from "react-icons/ai";
+import { IoIosCloseCircle } from "react-icons/io";
+import { BsBagX } from "react-icons/bs";
+import { LiaTimesSolid } from "react-icons/lia";
 
 const ProductDetail = () => {
-  // State for selected image in the gallery
   const [selectedImage, setSelectedImage] = useState("/Asgaard_sofa_3(1).png");
-
-  // State for selected color
   const [selectedColor, setSelectedColor] = useState("black");
-
-  // State for selected size
   const [selectedSize, setSelectedSize] = useState("L");
-
-  // State for quantity
   const [quantity, setQuantity] = useState(1);
-
-  // State for active tab
   const [activeTab, setActiveTab] = useState("description");
+  const [isCartOpen, setIsCartOpen] = useState(true);
+  const [cartItems, setCartItems] = useState([
+    {
+      id: 1,
+      name: "Asgaard sofa",
+      price: 250000.0,
+      quantity: 1,
+      image: "/Asgaard_sofa_3(1).png",
+    },
+    {
+      id: 2,
+      name: "Casaliving Wood",
+      price: 270000.0,
+      quantity: 1,
+      image: "/casaliving_wood.png",
+    },
+  ]);
 
   // Product data
   const product = {
     name: "Asgaard sofa",
-    price: "Rs. 250,000.00",
+    price: 250000.0,
     rating: 5,
     reviewsCount: 5,
     description:
       "Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well-balanced audio which boasts a clear midrange and extended highs for a sound.",
-    colors: ["black", "brown", "gray", "purple"],
-    sizes: ["XS", "S", "M", "L", "XL"],
+    colors: ["purple", "black", "brown"],
+    sizes: ["L", "XL", "XS", "S"],
     sku: "SS001",
     category: "Sofas",
     tags: ["Sofa", "Chair", "Home", "Shop"],
-    additionalImages: ["/Grifo.png", "/Lolito.png"], // Two images as per the design
+    additionalImages: ["/Grifo.png", "/Lolito.png"],
     additionalInfo: [
       { label: "Weight", value: "7 pounds" },
       { label: "Dimensions", value: "12 x 12 x 12 inches" },
@@ -61,15 +71,77 @@ const ProductDetail = () => {
     "/Outdoor sofa set 2.png",
   ];
 
+  // Related products data
+  const relatedProducts = [
+    {
+      name: "Syltherine",
+      description: "Stylish cafe chair",
+      price: "Rs. 2,500.00",
+      image: "/syltherine.png",
+    },
+    {
+      name: "Leviosa",
+      description: "Stylish cafe chair",
+      price: "Rs. 2,500.00",
+      image: "/leviosa.png",
+    },
+    {
+      name: "Lolito",
+      description: "Luxury big sofa",
+      price: "Rs. 7,000.00",
+      image: "/lolito.png",
+    },
+    {
+      name: "Respira",
+      description: "Outdoor table and chair",
+      price: "Rs. 500.00",
+      image: "/respira.png",
+    },
+  ];
+
   // Handle quantity change
   const handleQuantityChange = (change) => {
     setQuantity((prev) => Math.max(1, prev + change));
   };
 
+  // Handle adding to cart
+  const handleAddToCart = () => {
+    const newItem = {
+      id: Date.now(),
+      name: product.name,
+      price: product.price,
+      quantity: quantity,
+      image: selectedImage,
+    };
+    setCartItems((prev) => [...prev, newItem]);
+    setIsCartOpen(true);
+  };
+
+  // Handle removing an item from the cart
+  const handleRemoveFromCart = (id) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  // Format price as Rs. XXX,XXX.XX
+  const formatPrice = (price) => {
+    return `Rs. ${price.toLocaleString("en-IN", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  };
+
+  // Calculate subtotal
+  const calculateSubtotal = () => {
+    const total = cartItems.reduce((total, item) => {
+      return total + item.price * item.quantity;
+    }, 0);
+    return formatPrice(total);
+  };
+
   return (
-    <div className="w-full font-poppins">
+    <div className="w-full font-poppins bg-[#f7f7f7] bg-opacity-50 min-h-screen">
       {/* Breadcrumb Navigation */}
-      <div className="py-4 px-4 sm:px-6 lg:px-25 bg-[#F9F1E7]">
+      <div className="py-4 px-4 sm:px-6 lg:px-25 bg-transparent">
         <nav className="text-sm sm:text-base text-gray-600 flex items-center gap-1 sm:gap-1.5">
           <a href="/" className="hover:underline">
             Home
@@ -126,13 +198,13 @@ const ProductDetail = () => {
         {/* Right Side: Product Details */}
         <div className="w-full lg:w-1/2 flex flex-col gap-3">
           {/* Product Name */}
-          <h1 className="text-3xl sm:text-4xl lg:text-[42px] text-black">
+          <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-black">
             {product.name}
           </h1>
 
           {/* Price */}
           <p className="text-xl sm:text-2xl font-medium text-[#9F9F9F]">
-            {product.price}
+            {formatPrice(product.price)}
           </p>
 
           {/* Rating and Reviews */}
@@ -141,20 +213,19 @@ const ProductDetail = () => {
               <FaStar key={i} className="text-[#FFC107] w-4 h-4" />
             ))}
             <span className="text-[14px] text-[#9F9F9F] ml-2 flex items-center gap-2">
-              <span className="text-[#9F9F9F] h-[30px] border"></span>
               <span>{product.reviewsCount} Customer Reviews</span>
             </span>
           </div>
 
           {/* Description */}
-          <p className="text-sm text-black leading-auto h-20 w-auto">
+          <p className="text-sm text-[#9F9F9F] leading-auto h-20 w-auto">
             {product.description}
           </p>
 
           {/* Size Selection */}
           <div className="flex flex-col gap-4 mt-2">
             <span className="text-base font-medium text-black">Size</span>
-            <div className="flex  gap-2">
+            <div className="flex gap-2">
               {product.sizes.map((size) => (
                 <button
                   key={size}
@@ -173,7 +244,7 @@ const ProductDetail = () => {
 
           {/* Color Selection */}
           <div className="flex flex-col gap-4 mt-2">
-            <span className="text-base  font-medium text-black">Color</span>
+            <span className="text-base font-medium text-black">Color</span>
             <span className="space-x-2">
               {product.colors.map((color) => (
                 <button
@@ -209,11 +280,14 @@ const ProductDetail = () => {
               </button>
             </div>
             {/* Add to Cart Button */}
-            <button className="bg-white border border-black text-black font-medium text-xs py-3 px-1 md:px-8 rounded-md hover:bg-gray-100 transition-colors h-16 w-auto">
+            <button
+              onClick={handleAddToCart}
+              className="bg-white border border-black text-black font-medium text-xs md:text-base py-3 px-1 md:px-8 rounded-md hover:bg-gray-100 transition-colors h-16 w-auto"
+            >
               Add To Cart
             </button>
             {/* Compare Button */}
-            <button className="bg-white border border-black text-black font-medium py-3 px-4 rounded-md hover:bg-gray-100 transition-colors flex items-center gap-2">
+            <button className="bg-white border border-black text-black font-medium py-3 px-4 rounded-md hover:bg-gray-100 transition-colors flex items-center gap-2 h-16">
               <GoPlus className="w-5 h-5" /> Compare
             </button>
           </div>
@@ -242,18 +316,6 @@ const ProductDetail = () => {
               <span className="text-black flex items-center gap-3">
                 <span>:</span>
                 <span>{product.tags.join(", ")}</span>
-              </span>
-            </div>
-            {/* Share */}
-            <div className="flex items-center">
-              <span className="font-medium text-black w-22">Share</span>
-              <span className="text-black flex items-center gap-3">
-                <span>:</span>
-                <span className="flex items-center gap-3">
-                  <FaFacebook className="w-5 h-5 text-black cursor-pointer hover:text-[#B88E2F]" />
-                  <FaLinkedin className="w-5 h-5 text-black cursor-pointer hover:text-[#B88E2F]" />
-                  <AiFillTwitterCircle className="w-5 h-5 text-black cursor-pointer hover:text-[#B88E2F]" />
-                </span>
               </span>
             </div>
           </div>
@@ -380,6 +442,113 @@ const ProductDetail = () => {
           ))}
         </div>
       </div>
+
+      {/* Related Products Section */}
+      <div className="max-w-[1200px] mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <h2 className="text-2xl font-semibold text-center mb-6">
+          Related Products
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {relatedProducts.map((relatedProduct, index) => (
+            <div
+              key={index}
+              className="relative bg-[#F4F5F7] rounded-lg overflow-hidden"
+            >
+              <img
+                src={relatedProduct.image}
+                alt={relatedProduct.name}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-medium">{relatedProduct.name}</h3>
+                <p className="text-sm text-[#898989]">
+                  {relatedProduct.description}
+                </p>
+                <p className="text-base font-medium mt-2">
+                  {relatedProduct.price}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mt-6">
+          <button className="bg-white border border-[#B88E2F] text-[#B88E2F] font-medium py-2 px-6 rounded-md hover:bg-[#B88E2F] hover:text-white transition-colors">
+            Show More
+          </button>
+        </div>
+      </div>
+
+      {/* Cart Slider */}
+      <div
+        className={`fixed top-0 right-0 h-auto w-[417px] bg-white shadow-lg transform transition-transform duration-300 ${
+          isCartOpen ? "translate-x-0" : "translate-x-full"
+        } z-50`}
+      >
+        <div className="p-4">
+          <div className="flex justify-between items-center pb-4 border-b border-[#D9D9D9]">
+            <h2 className="text-lg font-semibold">Shopping Cart</h2>
+            <button onClick={() => setIsCartOpen(false)}>
+              <BsBagX className="w-6 h-6 text-gray-600" />
+            </button>
+          </div>
+          {cartItems.length === 0 ? (
+            <p className="text-gray-600">Your cart is empty.</p>
+          ) : (
+            <div className="space-y-4">
+              {cartItems.map((item) => (
+                <div key={item.id} className="flex items-center gap-5 my-2">
+                  <div className="bg-[#F9F1E7] rounded-xl h-[100px] w-[100px] p-2 flex items-center justify-center">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-auto h-auto object-contain rounded-md"
+                    />
+                  </div>
+                  <div className="flex-1 space-y-2">
+                    <p className="text-base ">{item.name}</p>
+                    <p className="text-sm flex items-center gap-3">
+                      <span>{item.quantity}</span> <LiaTimesSolid  className="text-base"/>
+                      <span className="text-[#B88E2F]">
+                        {formatPrice(item.price)}
+                      </span>
+                    </p>
+                  </div>
+                  <button onClick={() => handleRemoveFromCart(item.id)}>
+                    <IoIosCloseCircle className="w-6 h-6 text-gray-600" />
+                  </button>
+                </div>
+              ))}
+              <div className="border-t border-gray-300 pt-4 mt-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-base font-medium">Subtotal</span>
+                  <span className="text-base font-medium">
+                    {calculateSubtotal()}
+                  </span>
+                </div>
+              </div>
+              <div className="flex flex-row items-center justify-between gap-2 mt-4">
+                <button className="bg-white border border-black text-black font-medium py-2 px-4 rounded-3xl hover:bg-gray-100 transition-colors">
+                  Cart
+                </button>
+                <button className="bg-white border border-black text-black font-medium py-2 px-4 rounded-3xl hover:bg-gray-100 transition-colors">
+                  Checkout
+                </button>
+                <button className="bg-white border border-black text-black font-medium py-2 px-4 rounded-3xl hover:bg-gray-100 transition-colors">
+                  Comparison
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Overlay for Cart Slider */}
+      {isCartOpen && (
+        <div
+          className="fixed inset-0 bg-[#000000] bg-opacity-50 opacity-20 z-40"
+          onClick={() => setIsCartOpen(false)}
+        ></div>
+      )}
     </div>
   );
 };
