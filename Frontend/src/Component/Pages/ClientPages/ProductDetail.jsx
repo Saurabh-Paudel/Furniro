@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { FaStar } from "react-icons/fa";
-import { GoArrowSwitch } from "react-icons/go";
-import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebook, FaLinkedin, FaStar } from "react-icons/fa";
+import { GoPlus } from "react-icons/go";
+import { AiFillTwitterCircle } from "react-icons/ai";
 
 const ProductDetail = () => {
   // State for selected image in the gallery
@@ -11,21 +11,29 @@ const ProductDetail = () => {
   // State for selected color
   const [selectedColor, setSelectedColor] = useState("black");
 
+  // State for selected size
+  const [selectedSize, setSelectedSize] = useState("L");
+
+  // State for quantity
+  const [quantity, setQuantity] = useState(1);
+
   // State for active tab
   const [activeTab, setActiveTab] = useState("description");
 
   // Product data
   const product = {
     name: "Asgaard sofa",
-    price: "Rp 250,000",
+    price: "Rs. 250,000.00",
     rating: 5,
+    reviewsCount: 5,
     description:
       "Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well-balanced audio which boasts a clear midrange and extended highs for a sound.",
     colors: ["black", "brown", "gray", "purple"],
-    size: "L",
+    sizes: ["XS", "S", "M", "L", "XL"],
+    sku: "SS001",
     category: "Sofas",
     tags: ["Sofa", "Chair", "Home", "Shop"],
-    additionalImages: ["/Asgaard_sofa.png"],
+    additionalImages: ["/Grifo.png", "/Lolito.png"], // Two images as per the design
     additionalInfo: [
       { label: "Weight", value: "7 pounds" },
       { label: "Dimensions", value: "12 x 12 x 12 inches" },
@@ -47,11 +55,16 @@ const ProductDetail = () => {
 
   // Image gallery thumbnails
   const thumbnails = [
+    "/Asgaard_sofa_3(1).png",
     "/Mask group (3).png",
     "/Mask group.png",
     "/Outdoor sofa set 2.png",
-    "/Stuart sofa 1.png",
   ];
+
+  // Handle quantity change
+  const handleQuantityChange = (change) => {
+    setQuantity((prev) => Math.max(1, prev + change));
+  };
 
   return (
     <div className="w-full font-poppins">
@@ -75,7 +88,7 @@ const ProductDetail = () => {
       </div>
 
       {/* Main Product Section */}
-      <div className="max-w-[1200px] mx-auto py-6 px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-6">
+      <div className="max-w-[1200px] mx-auto py-6 px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-20">
         {/* Left Side: Image Gallery */}
         <div className="w-full lg:w-1/2 flex flex-col sm:flex-row gap-4">
           {/* Thumbnails (Vertical on the left) */}
@@ -84,7 +97,7 @@ const ProductDetail = () => {
               <button
                 key={index}
                 onClick={() => setSelectedImage(thumb)}
-                className={`w-20 h-20 sm:w-24 sm:h-24 bg-[#F9F1E7] rounded-lg overflow-hidden border-2 ${
+                className={`w-16 h-16 sm:w-20 sm:h-20 bg-[#F9F1E7] rounded-lg overflow-hidden border-2 ${
                   selectedImage === thumb
                     ? "border-[#B88E2F]"
                     : "border-transparent"
@@ -94,89 +107,155 @@ const ProductDetail = () => {
                   src={thumb}
                   alt={`Thumbnail ${index + 1}`}
                   className="w-full h-full object-contain"
-                  style={{ imageRendering: "auto" }} // Ensure high-quality rendering
+                  style={{ imageRendering: "auto" }}
                 />
               </button>
             ))}
           </div>
           {/* Main Image */}
-          <div className="w-full sm:w-4/5 h-[400px] sm:h-[500px] lg:h-[600px] bg-[#F9F1E7] rounded-lg overflow-hidden">
+          <div className="w-full sm:w-4/5 h-[300px] sm:h-[400px] lg:h-[500px] bg-[#F9F1E7] rounded-lg overflow-hidden">
             <img
               src={selectedImage}
               alt={product.name}
               className="w-full h-full object-contain"
-              style={{ imageRendering: "auto" }} // Ensure high-quality rendering
+              style={{ imageRendering: "auto" }}
             />
           </div>
         </div>
 
         {/* Right Side: Product Details */}
-        <div className="w-full lg:w-1/2 flex flex-col gap-4">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#3A3A3A]">
+        <div className="w-full lg:w-1/2 flex flex-col gap-3">
+          {/* Product Name */}
+          <h1 className="text-3xl sm:text-4xl lg:text-[42px] text-black">
             {product.name}
           </h1>
-          <p className="text-lg sm:text-xl lg:text-2xl font-medium text-[#9F9F9F]">
+
+          {/* Price */}
+          <p className="text-xl sm:text-2xl font-medium text-[#9F9F9F]">
             {product.price}
           </p>
+
+          {/* Rating and Reviews */}
           <div className="flex items-center gap-2">
             {[...Array(product.rating)].map((_, i) => (
-              <FaStar key={i} className="text-[#FFC107] w-5 h-5" />
+              <FaStar key={i} className="text-[#FFC107] w-4 h-4" />
             ))}
-            <span className="text-sm text-[#9F9F9F] ml-2">
-              ({product.rating} stars)
+            <span className="text-[14px] text-[#9F9F9F] ml-2 flex items-center gap-2">
+              <span className="text-[#9F9F9F] h-[30px] border"></span>
+              <span>{product.reviewsCount} Customer Reviews</span>
             </span>
           </div>
-          <p className="text-sm sm:text-base text-[#9F9F9F] leading-relaxed">
+
+          {/* Description */}
+          <p className="text-sm text-black leading-auto h-20 w-auto">
             {product.description}
           </p>
 
-          {/* Color Selection */}
-          <div className="flex items-center gap-3">
-            <span className="text-sm sm:text-base font-medium text-[#3A3A3A]">
-              Color:
-            </span>
-            {product.colors.map((color) => (
-              <button
-                key={color}
-                onClick={() => setSelectedColor(color)}
-                className={`w-6 h-6 rounded-full border-2 ${
-                  selectedColor === color
-                    ? "border-[#B88E2F]"
-                    : "border-gray-300"
-                }`}
-                style={{ backgroundColor: color }}
-              ></button>
-            ))}
+          {/* Size Selection */}
+          <div className="flex flex-col gap-4 mt-2">
+            <span className="text-base font-medium text-black">Size</span>
+            <div className="flex  gap-2">
+              {product.sizes.map((size) => (
+                <button
+                  key={size}
+                  onClick={() => setSelectedSize(size)}
+                  className={`w-10 h-10 flex items-center justify-center rounded-md text-sm font-medium ${
+                    selectedSize === size
+                      ? "bg-[#B88E2F] text-white"
+                      : "bg-[#F9F1E7] text-black"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex gap-4">
-            <button className="bg-[#B88E2F] text-white font-semibold py-3 px-8 rounded-md hover:bg-[#a07d2a] transition-colors">
-              Add to Cart
+          {/* Color Selection */}
+          <div className="flex flex-col gap-4 mt-2">
+            <span className="text-base  font-medium text-black">Color</span>
+            <span className="space-x-2">
+              {product.colors.map((color) => (
+                <button
+                  key={color}
+                  onClick={() => setSelectedColor(color)}
+                  className={`w-8 h-8 rounded-full border-2 ${
+                    selectedColor === color ? "border-black" : "border-gray-300"
+                  }`}
+                  style={{ backgroundColor: color }}
+                ></button>
+              ))}
+            </span>
+          </div>
+
+          {/* Quantity and Action Buttons */}
+          <div className="flex items-center gap-4 mt-4">
+            {/* Quantity Selector */}
+            <div className="flex items-center border border-gray-300 rounded-md h-16 w-[123px]">
+              <button
+                onClick={() => handleQuantityChange(-1)}
+                className="w-12 h-12 flex items-center justify-center text-2xl font-medium text-black"
+              >
+                -
+              </button>
+              <span className="w-12 h-12 flex items-center justify-center text-base font-medium text-black">
+                {quantity}
+              </span>
+              <button
+                onClick={() => handleQuantityChange(1)}
+                className="w-12 h-12 flex items-center justify-center text-2xl font-medium text-black"
+              >
+                +
+              </button>
+            </div>
+            {/* Add to Cart Button */}
+            <button className="bg-white border border-black text-black font-medium text-xs py-3 px-1 md:px-8 rounded-md hover:bg-gray-100 transition-colors h-16 w-auto">
+              Add To Cart
             </button>
-            <button className="border border-[#B88E2F] text-[#B88E2F] font-semibold py-3 px-8 rounded-md hover:bg-[#B88E2F] hover:text-white transition-colors flex items-center gap-2">
-              <GoArrowSwitch className="w-5 h-5" /> Compare
+            {/* Compare Button */}
+            <button className="bg-white border border-black text-black font-medium py-3 px-4 rounded-md hover:bg-gray-100 transition-colors flex items-center gap-2">
+              <GoPlus className="w-5 h-5" /> Compare
             </button>
           </div>
 
           {/* Additional Info */}
-          <div className="border-t border-gray-300 pt-4 mt-4 space-y-2">
-            <p className="text-sm sm:text-base text-[#3A3A3A]">
-              <span className="font-medium">Size:</span> {product.size}
-            </p>
-            <p className="text-sm sm:text-base text-[#3A3A3A]">
-              <span className="font-medium">Category:</span> {product.category}
-            </p>
-            <p className="text-sm sm:text-base text-[#3A3A3A]">
-              <span className="font-medium">Tags:</span>{" "}
-              {product.tags.join(", ")}
-            </p>
-            <p className="text-sm sm:text-base text-[#3A3A3A] flex items-center gap-3">
-              <span className="font-medium">Share:</span>
-              <FaFacebookF className="w-5 h-5 text-[#3A3A3A] cursor-pointer hover:text-[#B88E2F]" />
-              <FaTwitter className="w-5 h-5 text-[#3A3A3A] cursor-pointer hover:text-[#B88E2F]" />
-              <FaInstagram className="w-5 h-5 text-[#3A3A3A] cursor-pointer hover:text-[#B88E2F]" />
-            </p>
+          <div className="border-t border-gray-300 pt-4 mt-6 space-y-2 text-base">
+            {/* SKU */}
+            <div className="flex items-center">
+              <span className="font-medium text-black w-22">SKU</span>
+              <span className="text-black flex items-center gap-3">
+                <span>:</span>
+                <span>{product.sku}</span>
+              </span>
+            </div>
+            {/* Category */}
+            <div className="flex items-center">
+              <span className="font-medium text-black w-22">Category</span>
+              <span className="text-black flex items-center gap-3">
+                <span>:</span>
+                <span>{product.category}</span>
+              </span>
+            </div>
+            {/* Tags */}
+            <div className="flex items-center">
+              <span className="font-medium text-black w-22">Tags</span>
+              <span className="text-black flex items-center gap-3">
+                <span>:</span>
+                <span>{product.tags.join(", ")}</span>
+              </span>
+            </div>
+            {/* Share */}
+            <div className="flex items-center">
+              <span className="font-medium text-black w-22">Share</span>
+              <span className="text-black flex items-center gap-3">
+                <span>:</span>
+                <span className="flex items-center gap-3">
+                  <FaFacebook className="w-5 h-5 text-black cursor-pointer hover:text-[#B88E2F]" />
+                  <FaLinkedin className="w-5 h-5 text-black cursor-pointer hover:text-[#B88E2F]" />
+                  <AiFillTwitterCircle className="w-5 h-5 text-black cursor-pointer hover:text-[#B88E2F]" />
+                </span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -189,8 +268,8 @@ const ProductDetail = () => {
             onClick={() => setActiveTab("description")}
             className={`py-3 px-4 text-base sm:text-lg font-medium ${
               activeTab === "description"
-                ? "text-[#B88E2F] border-b-2 border-[#B88E2F]"
-                : "text-[#3A3A3A]"
+                ? "text-[#3A3A3A] font-semibold"
+                : "text-[#9F9F9F]"
             }`}
           >
             Description
@@ -199,8 +278,8 @@ const ProductDetail = () => {
             onClick={() => setActiveTab("additional")}
             className={`py-3 px-4 text-base sm:text-lg font-medium ${
               activeTab === "additional"
-                ? "text-[#B88E2F] border-b-2 border-[#B88E2F]"
-                : "text-[#3A3A3A]"
+                ? "text-[#3A3A3A] font-semibold"
+                : "text-[#9F9F9F]"
             }`}
           >
             Additional Information
@@ -209,11 +288,11 @@ const ProductDetail = () => {
             onClick={() => setActiveTab("reviews")}
             className={`py-3 px-4 text-base sm:text-lg font-medium ${
               activeTab === "reviews"
-                ? "text-[#B88E2F] border-b-2 border-[#B88E2F]"
-                : "text-[#3A3A3A]"
+                ? "text-[#3A3A3A] font-semibold"
+                : "text-[#9F9F9F]"
             }`}
           >
-            Reviews ({product.reviews.length})
+            Reviews [{product.reviewsCount}]
           </button>
         </div>
 
@@ -221,9 +300,6 @@ const ProductDetail = () => {
         <div className="py-8">
           {activeTab === "description" && (
             <div>
-              <h2 className="text-xl sm:text-2xl font-semibold text-[#3A3A3A] mb-4">
-                Description
-              </h2>
               <p className="text-sm sm:text-base text-[#9F9F9F] leading-relaxed">
                 Embodying the raw, wayward spirit of rock ‘n’ roll, the Kilburn
                 portable active stereo speaker takes the unmistakable look and
@@ -241,9 +317,6 @@ const ProductDetail = () => {
           )}
           {activeTab === "additional" && (
             <div>
-              <h2 className="text-xl sm:text-2xl font-semibold text-[#3A3A3A] mb-4">
-                Additional Information
-              </h2>
               <ul className="text-sm sm:text-base text-[#9F9F9F] leading-relaxed space-y-2">
                 {product.additionalInfo.map((info, index) => (
                   <li key={index}>
@@ -258,9 +331,6 @@ const ProductDetail = () => {
           )}
           {activeTab === "reviews" && (
             <div>
-              <h2 className="text-xl sm:text-2xl font-semibold text-[#3A3A3A] mb-4">
-                Reviews
-              </h2>
               {product.reviews.length > 0 ? (
                 <ul className="space-y-4">
                   {product.reviews.map((review, index) => (
@@ -303,7 +373,8 @@ const ProductDetail = () => {
               <img
                 src={img}
                 alt={`Additional ${index + 1}`}
-                className="w-auto h-auto object-contain"
+                className="w-full h-full object-contain"
+                style={{ imageRendering: "auto" }}
               />
             </div>
           ))}
