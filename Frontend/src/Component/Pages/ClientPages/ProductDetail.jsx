@@ -5,6 +5,7 @@ import { GoPlus } from "react-icons/go";
 import { IoIosCloseCircle } from "react-icons/io";
 import { BsBagX } from "react-icons/bs";
 import { LiaTimesSolid } from "react-icons/lia";
+import { PiLineVertical } from "react-icons/pi";
 
 const ProductDetail = () => {
   const [selectedImage, setSelectedImage] = useState("/Asgaard_sofa_3(1).png");
@@ -12,7 +13,7 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState("L");
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("description");
-  const [isCartOpen, setIsCartOpen] = useState(true);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([
     {
       id: 1,
@@ -141,21 +142,23 @@ const ProductDetail = () => {
   return (
     <div className="w-full font-poppins bg-[#f7f7f7] bg-opacity-50 min-h-screen">
       {/* Breadcrumb Navigation */}
-      <div className="py-4 px-4 sm:px-6 lg:px-25 bg-transparent">
-        <nav className="text-sm sm:text-base text-gray-600 flex items-center gap-1 sm:gap-1.5">
+      <div className="py-4 px-4 sm:px-6 lg:px-25 bg-[#F9F1E7] h-[100px] w-full flex items-center">
+        <nav className="text-base sm:text-base text-[#9F9F9F] flex items-center gap-1 sm:gap-1.5">
           <a href="/" className="hover:underline">
             Home
           </a>
           <span className="mx-1 sm:mx-2">
-            <MdKeyboardArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
+            <MdKeyboardArrowRight className="h-5 w-5 text-black" />
           </span>
           <a href="/shop" className="hover:underline">
             Shop
           </a>
           <span className="mx-1 sm:mx-2">
-            <MdKeyboardArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
+            <MdKeyboardArrowRight className="h-5 w-5 text-black" />
           </span>
-          <span>{product.name}</span>
+          <span className="border-l-2 px-5 h-auto text-black">
+            {product.name}
+          </span>
         </nav>
       </div>
 
@@ -485,48 +488,60 @@ const ProductDetail = () => {
         } z-50`}
       >
         <div className="p-4">
+          {/* Header */}
           <div className="flex justify-between items-center pb-4 border-b border-[#D9D9D9]">
             <h2 className="text-lg font-semibold">Shopping Cart</h2>
             <button onClick={() => setIsCartOpen(false)}>
               <BsBagX className="w-6 h-6 text-gray-600" />
             </button>
           </div>
-          {cartItems.length === 0 ? (
-            <p className="text-gray-600">Your cart is empty.</p>
-          ) : (
-            <div className="space-y-4">
-              {cartItems.map((item) => (
-                <div key={item.id} className="flex items-center gap-5 my-2">
-                  <div className="bg-[#F9F1E7] rounded-xl h-[100px] w-[100px] p-2 flex items-center justify-center">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-auto h-auto object-contain rounded-md"
-                    />
+
+          {/* Scrollable Cart Items */}
+          <div className="max-h-[300px] overflow-y-auto">
+            {cartItems.length === 0 ? (
+              <p className="text-gray-600 py-4 text-center">
+                Your cart is empty.
+              </p>
+            ) : (
+              <div className="space-y-4 py-4">
+                {cartItems.map((item) => (
+                  <div key={item.id} className="flex items-center gap-5">
+                    <div className="bg-[#F9F1E7] rounded-xl h-[100px] w-[100px] p-2 flex items-center justify-center">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-auto h-auto object-contain rounded-md"
+                      />
+                    </div>
+                    <div className="flex-1 space-y-2">
+                      <p className="text-base">{item.name}</p>
+                      <p className="text-sm flex items-center gap-3">
+                        <span>{item.quantity}</span>{" "}
+                        <LiaTimesSolid className="text-base" />
+                        <span className="text-[#B88E2F]">
+                          {formatPrice(item.price)}
+                        </span>
+                      </p>
+                    </div>
+                    <button onClick={() => handleRemoveFromCart(item.id)}>
+                      <IoIosCloseCircle className="w-6 h-6 text-gray-600" />
+                    </button>
                   </div>
-                  <div className="flex-1 space-y-2">
-                    <p className="text-base ">{item.name}</p>
-                    <p className="text-sm flex items-center gap-3">
-                      <span>{item.quantity}</span> <LiaTimesSolid  className="text-base"/>
-                      <span className="text-[#B88E2F]">
-                        {formatPrice(item.price)}
-                      </span>
-                    </p>
-                  </div>
-                  <button onClick={() => handleRemoveFromCart(item.id)}>
-                    <IoIosCloseCircle className="w-6 h-6 text-gray-600" />
-                  </button>
-                </div>
-              ))}
-              <div className="border-t border-gray-300 pt-4 mt-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-base font-medium">Subtotal</span>
-                  <span className="text-base font-medium">
-                    {calculateSubtotal()}
-                  </span>
-                </div>
+                ))}
               </div>
-              <div className="flex flex-row items-center justify-between gap-2 mt-4">
+            )}
+          </div>
+
+          {/* Footer (Subtotal and Buttons) */}
+          {cartItems.length > 0 && (
+            <div className="border-t border-gray-300 pt-4 mt-4">
+              <div className="flex justify-between items-center mb-4">
+                <span className="text-base font-medium">Subtotal</span>
+                <span className="text-base font-medium">
+                  {calculateSubtotal()}
+                </span>
+              </div>
+              <div className="flex flex-row items-center justify-between gap-2">
                 <button className="bg-white border border-black text-black font-medium py-2 px-4 rounded-3xl hover:bg-gray-100 transition-colors">
                   Cart
                 </button>
