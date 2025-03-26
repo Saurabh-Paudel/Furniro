@@ -263,7 +263,7 @@ const ProductDetail = () => {
           </div>
 
           {/* Quantity and Action Buttons */}
-          <div className="flex items-center gap-4 mt-4">
+          <div className="flex items-center gap-2 mt-4">
             {/* Quantity Selector */}
             <div className="flex items-center border border-gray-300 rounded-md h-16 w-[123px]">
               <button
@@ -282,15 +282,17 @@ const ProductDetail = () => {
                 +
               </button>
             </div>
+
             {/* Add to Cart Button */}
             <button
               onClick={handleAddToCart}
-              className="bg-white border border-black text-black font-medium text-xs md:text-base py-3 px-1 md:px-8 rounded-md hover:bg-gray-100 transition-colors h-16 w-auto"
+              className="bg-white border border-black text-black font-medium text-xs md:text-base py-3 px-1 md:px-8 rounded-md hover:bg-gray-100 transition-colors h-16 flex-1"
             >
               Add To Cart
             </button>
+
             {/* Compare Button */}
-            <button className="bg-white border border-black text-black font-medium py-3 px-4 rounded-md hover:bg-gray-100 transition-colors flex items-center gap-2 h-16">
+            <button className="bg-white border border-black text-black font-medium py-3 px-4 rounded-md hover:bg-gray-100 transition-colors flex items-center gap-2 h-16 w-[110px]">
               <GoPlus className="w-5 h-5" /> Compare
             </button>
           </div>
@@ -496,8 +498,8 @@ const ProductDetail = () => {
             </button>
           </div>
 
-          {/* Scrollable Cart Items */}
-          <div className="max-h-[300px] overflow-y-auto">
+          {/* Scrollable Cart Items with Custom Scrollbar */}
+          <div className="max-h-[300px] overflow-y-auto custom-scrollbar">
             {cartItems.length === 0 ? (
               <p className="text-gray-600 py-4 text-center">
                 Your cart is empty.
