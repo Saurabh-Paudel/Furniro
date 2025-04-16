@@ -8,6 +8,7 @@ import LoginSignup from "./Component/Pages/Authentication/LoginSignup";
 import Shop from "./Component/Pages/ClientPages/Shop";
 import ProductDetail from "./Component/Pages/ClientPages/ProductDetail";
 import Cart from "./Component/Pages/ClientPages/Cart";
+import Checkout from "./Component/Pages/ClientPages/Checkout";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="shop" element={<Shop />} />
           <Route path="product-detail" element={<ProductDetail />} />
           <Route path="shopping-cart" element={<Cart />} />
+          <Route path="checkout" element={<Checkout />} />
         </Route>
       </Routes>
     </>

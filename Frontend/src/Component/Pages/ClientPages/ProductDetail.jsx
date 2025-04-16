@@ -5,7 +5,6 @@ import { GoPlus } from "react-icons/go";
 import { IoIosCloseCircle } from "react-icons/io";
 import { BsBagX } from "react-icons/bs";
 import { LiaTimesSolid } from "react-icons/lia";
-import { PiLineVertical } from "react-icons/pi";
 
 const ProductDetail = () => {
   const [selectedImage, setSelectedImage] = useState("/Asgaard_sofa_3(1).png");
