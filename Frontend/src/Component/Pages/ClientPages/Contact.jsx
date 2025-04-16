@@ -15,7 +15,7 @@ function Contact() {
         ></div>
         <div className="relative text-center z-10 space-y-2 sm:space-y-3">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-black">
-            Cart
+            Contact
           </h1>
           <nav className="mt-1 sm:mt-2 text-xs sm:text-sm md:text-base flex items-center justify-center gap-1 sm:gap-1.5">
             <Link to="/" className="text-black">
@@ -24,7 +24,7 @@ function Contact() {
             <span className="mx-1 sm:mx-2 text-gray-600">
               <MdKeyboardArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
             </span>
-            <span className="text-gray-600">Checkout</span>
+            <span className="text-gray-600">Contact</span>
           </nav>
         </div>
       </div>
