@@ -11,6 +11,7 @@ import Cart from "./Component/Pages/ClientPages/Cart";
 import Checkout from "./Component/Pages/ClientPages/Checkout";
 import Contact from "./Component/Pages/ClientPages/Contact";
 import Blog from "./Component/Pages/ClientPages/Blog";
+import About from "./Component/Pages/ClientPages/About";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="login" element={<LoginSignup />} />
           <Route path="shop" element={<Shop />} />
+          <Route path="about" element={<About />} />
           <Route path="product-detail" element={<ProductDetail />} />
           <Route path="shopping-cart" element={<Cart />} />
           <Route path="checkout" element={<Checkout />} />
